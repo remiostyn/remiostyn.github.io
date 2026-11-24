@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <!-- ===== MÉTADONNÉES ===== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rémi Ostyn | Développeur web junior</title>
+    <meta name="description" content="Portfolio de Rémi Ostyn, développeur web junior passionné de design et d'e-commerce, basé en Belgique. En recherche de stage à partir de février 2027.">
+
+    <!-- Police Geist (texte) et Geist Mono (petites étiquettes) depuis Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ===== EN-TÊTE (reste collé en haut de l'écran) ===== -->
+    <header class="en-tete">
+        <div class="conteneur en-tete__interieur">
+            <!-- Logo : mes initiales + un point de la couleur d'accent -->
+            <a href="#accueil" class="en-tete__logo" aria-label="Rémi Ostyn, retour en haut">RO<span class="accent">.</span></a>
+
+            <nav class="navigation" aria-label="Navigation principale">
+                <ul class="navigation__liens" id="menu">
+                    <li><a href="#projets">Projets</a></li>
+                    <li><a href="#a-propos">À propos</a></li>
+                    <li><a href="#competences">Compétences</a></li>
+                    <li><a href="#parcours">Parcours</a></li>
+                </ul>
+            </nav>
+
+            <div class="en-tete__actions">
+                <!-- Bouton mode clair / sombre (rendu fonctionnel en JavaScript plus tard) -->
+                <button class="bouton-theme" id="bouton-theme" type="button" aria-label="Passer en mode clair">
+                    <span aria-hidden="true">◐</span>
+                </button>
+                <a href="#contact" class="bouton bouton--plein bouton--petit">Contact</a>
+
+                <!-- Bouton du menu mobile, visible seulement sur petit écran -->
+                <button class="menu-burger" id="bouton-burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- ===== ACCUEIL : texte à gauche, photo à droite ===== -->
+        <section class="accueil" id="accueil">
+            <div class="conteneur accueil__grille">
+                <div>
+                    <p class="etiquette etiquette--accent">Bonjour, je suis</p>
+                    <h1 class="accueil__titre">Rémi Ostyn</h1>
+                    <p class="accueil__role">Développeur web junior</p>
+                    <p class="accueil__intro">
+                        Passionné de design et d'e-commerce, je conçois des interfaces web
+                        claires et soignées. Je recherche un stage à partir de février 2027.
+                    </p>
+                    <div class="accueil__boutons">
+                        <a href="#projets" class="bouton bouton--plein">Voir mes projets <span aria-hidden="true">↓</span></a>
+                        <a href="#contact" class="bouton bouton--contour">Me contacter</a>
+                    </div>
+                </div>
+
+                <!-- Cadre photo : le bloc rouge derrière est créé en CSS (.photo::before) -->
+                <div class="photo">
+                    <img src="images/photo-remi.jpg" alt="Portrait de Rémi Ostyn" width="720" height="900">
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 01 / PROJETS ===== -->
+        <section class="section" id="projets">
+            <div class="conteneur">
+                <div class="section__entete">
+                    <p class="etiquette etiquette--accent">01 / Projets</p>
+                    <h2 class="section__titre">Une sélection de réalisations.</h2>
+                </div>
+
+                <!-- Une carte = un projet. Pour en ajouter un, on copie tout le bloc <article>. -->
+                <article class="projet">
+                    <a href="https://kryo.food-athitude.be/" class="projet__image" target="_blank" rel="noopener noreferrer">
+                        <img src="images/kryo-apercu.png" alt="Page d'accueil du site KRYO Festival" loading="lazy">
+                    </a>
+
+                    <div class="projet__texte">
+                        <p class="etiquette">2026 · Projet de formation</p>
+                        <h3 class="projet__titre">KRYO Festival</h3>
+                        <p class="projet__description">
+                            Site vitrine d'un festival d'art digital organisé à l'EPSE d'Enghien :
+                            programme, expositions, accès et contact. Intégration responsive
+                            à partir d'une maquette, avec un menu mobile en JavaScript.
+                        </p>
+
+                        <ul class="badges">
+                            <li class="badge">HTML</li>
+                            <li class="badge">SCSS</li>
+                            <li class="badge">JavaScript</li>
+                        </ul>
+
+                        <div class="projet__liens">
+                            <a href="https://kryo.food-athitude.be/" class="bouton bouton--plein" target="_blank" rel="noopener noreferrer">
+                                Voir le site <span aria-hidden="true">↗</span>
+                            </a>
+                            <a href="https://github.com/OstynRepse/kryo-festival" class="bouton bouton--contour" target="_blank" rel="noopener noreferrer">
+                                Code sur GitHub
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- ===== 02 / À PROPOS ===== -->
+        <section class="section" id="a-propos">
+            <div class="conteneur">
+                <div class="section__entete">
+                    <p class="etiquette etiquette--accent">02 / À propos</p>
+                    <h2 class="section__titre">Apprendre, construire, progresser en équipe.</h2>
+                </div>
+
+                <div class="a-propos">
+                    <!-- Infos rapides sous forme de liste de définitions (<dl>) -->
+                    <dl class="infos">
+                        <div>
+                            <dt class="etiquette">Basé à</dt>
+                            <dd>Ghislenghien, Belgique</dd>
+                        </div>
+                        <div>
+                            <dt class="etiquette">Recherche</dt>
+                            <dd>Stage dès le 22 février 2027<br><span class="texte-discret">7 à 11 semaines</span></dd>
+                        </div>
+                        <div>
+                            <dt class="etiquette">Langues</dt>
+                            <dd>Français <span class="texte-discret">(langue maternelle)</span><br>
+                                Anglais <span class="texte-discret">(intermédiaire)</span><br>
+                                Néerlandais <span class="texte-discret">(débutant)</span></dd>
+                        </div>
+                    </dl>
+
+                    <div class="a-propos__texte">
+                        <p>
+                            J'ai 29 ans et je suis passionné par l'e-commerce. En parallèle de mon
+                            travail, j'ai lancé une activité complémentaire en ligne pour laquelle
+                            j'ai créé plusieurs boutiques, qui ont généré plusieurs dizaines de
+                            milliers d'euros de chiffre d'affaires.
+                        </p>
+                        <p>
+                            C'est en construisant ces sites que j'ai eu envie de comprendre ce qui
+                            se passe derrière l'écran. J'ai donc décidé d'en faire mon métier et je
+                            suis aujourd'hui la formation de développeur web à l'EPSE. Ce que je
+                            préfère, c'est le design : on peut créer énormément de choses.
+                        </p>
+                        <p>
+                            J'utilise beaucoup l'intelligence artificielle pour apprendre et
+                            avancer plus vite, en gardant un regard critique sur le code produit.
+                            Je cherche maintenant un stage pour rejoindre une équipe, travailler
+                            sur de vrais projets et progresser auprès de développeurs expérimentés.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 03 / COMPÉTENCES : une grille de cartes ===== -->
+        <section class="section" id="competences">
+            <div class="conteneur">
+                <div class="section__entete">
+                    <p class="etiquette etiquette--accent">03 / Compétences</p>
+                    <h2 class="section__titre">Les outils avec lesquels je travaille.</h2>
+                </div>
+
+                <div class="cartes">
+                    <article class="carte">
+                        <span class="carte__icone" aria-hidden="true">&lt;/&gt;</span>
+                        <h3 class="carte__titre">Frontend</h3>
+                        <p class="carte__texte">Intégration de maquettes, mise en page responsive et interactions.</p>
+                        <ul class="badges">
+                            <li class="badge">HTML</li>
+                            <li class="badge">CSS / SCSS</li>
+                            <li class="badge">JavaScript</li>
+                        </ul>
+                    </article>
+
+                    <article class="carte">
+                        <span class="carte__icone" aria-hidden="true">◎</span>
+                        <h3 class="carte__titre">Design</h3>
+                        <p class="carte__texte">Ce que je préfère : imaginer des interfaces claires, soignées et agréables à utiliser.</p>
+                    </article>
+
+                    <article class="carte">
+                        <span class="carte__icone" aria-hidden="true">€</span>
+                        <h3 class="carte__titre">E-commerce</h3>
+                        <p class="carte__texte">Création et gestion de plusieurs boutiques en ligne, de la mise en place à la vente.</p>
+                    </article>
+
+                    <article class="carte">
+                        <span class="carte__icone" aria-hidden="true">{ }</span>
+                        <h3 class="carte__titre">En cours d'apprentissage</h3>
+                        <p class="carte__texte">Le backend et les CMS, que je travaille en ce moment en formation.</p>
+                        <ul class="badges">
+                            <li class="badge">PHP</li>
+                            <li class="badge">MySQL</li>
+                            <li class="badge">Symfony</li>
+                            <li class="badge">WordPress</li>
+                        </ul>
+                    </article>
+
+                    <article class="carte">
+                        <span class="carte__icone" aria-hidden="true">✦</span>
+                        <h3 class="carte__titre">Intelligence artificielle</h3>
+                        <p class="carte__texte">Un outil du quotidien pour apprendre et avancer plus vite, en relisant et en comprenant le code produit.</p>
+                    </article>
+
+                    <article class="carte">
+                        <span class="carte__icone" aria-hidden="true">⌘</span>
+                        <h3 class="carte__titre">Outils</h3>
+                        <p class="carte__texte">Ce que j'utilise au quotidien pour coder.</p>
+                        <ul class="badges">
+                            <li class="badge">VS Code</li>
+                            <li class="badge">Claude Code</li>
+                            <li class="badge">GitHub</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 04 / PARCOURS : une frise chronologique ===== -->
+        <section class="section" id="parcours">
+            <div class="conteneur">
+                <div class="section__entete">
+                    <p class="etiquette etiquette--accent">04 / Parcours</p>
+                    <h2 class="section__titre">Formations et expériences.</h2>
+                </div>
+
+                <ol class="frise">
+                    <li class="frise__etape">
+                        <p class="etiquette">Sept. 2025 – Mai 2027 · Formation</p>
+                        <h3 class="frise__titre">Développeur web</h3>
+                        <p class="frise__lieu">EPSE, Enghien</p>
+                        <p>HTML, CSS, JavaScript, PHP, MySQL, Symfony et WordPress. Réalisation du site KRYO Festival.</p>
+                    </li>
+                    <li class="frise__etape">
+                        <p class="etiquette">2024 – 2025 · Formation</p>
+                        <h3 class="frise__titre">E-commerce</h3>
+                        <p class="frise__lieu">IFAPME</p>
+                        <p>Formation suivie par passion, pour approfondir la vente en ligne.</p>
+                    </li>
+                    <li class="frise__etape">
+                        <p class="etiquette">2018 – 2020 · Activité complémentaire</p>
+                        <h3 class="frise__titre">Créateur de boutiques en ligne</h3>
+                        <p class="frise__lieu">Indépendant</p>
+                        <p>Création et gestion de plusieurs sites e-commerce, qui ont généré plusieurs dizaines de milliers d'euros de chiffre d'affaires.</p>
+                    </li>
+                    <li class="frise__etape">
+                        <p class="etiquette">Expérience</p>
+                        <h3 class="frise__titre">Facteur</h3>
+                        <p class="frise__lieu">bpost</p>
+                        <p>Autonomie, ponctualité et sens des responsabilités au quotidien.</p>
+                    </li>
+                    <li class="frise__etape">
+                        <p class="etiquette">Expérience</p>
+                        <h3 class="frise__titre">Préparateur de commandes</h3>
+                        <p class="frise__lieu">Colruyt Group</p>
+                        <p>Rigueur, rapidité et travail en équipe, dans la logistique qui se cache derrière chaque commande.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- ===== 05 / CONTACT : un grand bandeau d'appel à l'action ===== -->
+        <section class="section" id="contact">
+            <div class="conteneur">
+                <div class="contact">
+                    <p class="etiquette etiquette--accent">05 / Contact</p>
+                    <h2 class="contact__titre">Travaillons ensemble<span class="accent">.</span></h2>
+                    <p class="contact__texte">
+                        Je recherche un stage de 7 à 11 semaines à partir du 22 février 2027,
+                        au sein d'une équipe où je pourrai contribuer et continuer à apprendre.
+                        Je réponds à chaque message.
+                    </p>
+                    <div class="contact__liens">
+                        <a href="mailto:remiostynsecu@outlook.be" class="bouton bouton--plein">M'écrire un e-mail</a>
+                        <a href="https://github.com/OstynRepse" class="bouton bouton--contour" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    </div>
+                    <p class="contact__email etiquette">remiostynsecu@outlook.be</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== PIED DE PAGE ===== -->
+    <footer class="pied">
+        <div class="conteneur pied__interieur">
+            <p>© 2026 Rémi Ostyn</p>
+            <p class="etiquette">HTML · CSS · JavaScript</p>
+        </div>
+    </footer>
+
+    <!-- Le JavaScript se charge en dernier, une fois la page construite -->
+    <script src="js/script.js"></script>
+</body>
+</html>

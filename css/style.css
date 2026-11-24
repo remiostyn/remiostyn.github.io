@@ -1,0 +1,706 @@
+/* =========================================================
+   1. VARIABLES
+   Toutes les couleurs, polices et espacements sont ici.
+   Pour changer une couleur partout sur le site, on la change
+   une seule fois ici.
+   ========================================================= */
+:root {
+    /* Couleurs : le site est sombre par défaut */
+    --couleur-fond: #0e0e0e;
+    --couleur-fond-carte: #171717;
+    --couleur-texte: #f2f2f2;
+    --couleur-texte-discret: #a3a3a3;
+    --couleur-bordure: #262626;
+
+    /* Couleur d'accent (rouge) :
+       - "accent" pour les fonds (boutons, cadre photo)
+       - "accent-texte" pour le texte rouge, un peu plus clair
+         pour rester bien lisible sur fond noir */
+    --couleur-accent: #d92d2d;
+    --couleur-accent-texte: #ff5c5c;
+    --couleur-sur-accent: #ffffff;
+
+    /* Polices */
+    --police-texte: "Geist", system-ui, sans-serif;
+    --police-mono: "Geist Mono", ui-monospace, monospace;
+
+    /* Espacements et tailles */
+    --largeur-max: 1200px;
+    --marge-cote: clamp(1rem, 4vw, 2.5rem);
+    --espace-section: clamp(5rem, 10vw, 8rem);
+    --arrondi: 12px;
+    --arrondi-bouton: 999px;
+    --hauteur-en-tete: 4rem;
+}
+
+/* Mode clair : on remplace seulement les couleurs.
+   L'attribut data-theme="clair" sera ajouté sur <html> par le JavaScript. */
+[data-theme="clair"] {
+    --couleur-fond: #fafaf8;
+    --couleur-fond-carte: #ffffff;
+    --couleur-texte: #171717;
+    --couleur-texte-discret: #5c5c5c;
+    --couleur-bordure: #e5e5e2;
+    --couleur-accent-texte: #c62424;
+}
+
+
+/* =========================================================
+   2. BASE (remise à zéro des styles du navigateur)
+   ========================================================= */
+*,
+*::before,
+*::after {
+    box-sizing: border-box; /* la largeur inclut padding et bordure */
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth; /* défilement doux vers les ancres #projets, etc. */
+    scroll-padding-top: var(--hauteur-en-tete); /* évite que l'en-tête cache le titre */
+}
+
+body {
+    background-color: var(--couleur-fond);
+    color: var(--couleur-texte);
+    font-family: var(--police-texte);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Contour visible quand on navigue au clavier (accessibilité) */
+:focus-visible {
+    outline: 2px solid var(--couleur-accent-texte);
+    outline-offset: 3px;
+}
+
+/* Couleur du texte sélectionné à la souris */
+::selection {
+    background-color: var(--couleur-accent);
+    color: var(--couleur-sur-accent);
+}
+
+
+/* =========================================================
+   3. OUTILS RÉUTILISABLES
+   ========================================================= */
+
+/* Centre le contenu et limite sa largeur */
+.conteneur {
+    width: 100%;
+    max-width: var(--largeur-max);
+    margin-inline: auto;
+    padding-inline: var(--marge-cote);
+}
+
+.accent {
+    color: var(--couleur-accent-texte);
+}
+
+/* Petit texte en majuscules, style "machine à écrire" */
+.etiquette {
+    font-family: var(--police-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--couleur-texte-discret);
+}
+
+.etiquette--accent {
+    color: var(--couleur-accent-texte);
+}
+
+/* Boutons */
+.bouton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.4rem;
+    border-radius: var(--arrondi-bouton);
+    border: 1px solid transparent;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: transform 0.2s, background-color 0.2s, border-color 0.2s;
+}
+
+.bouton:hover {
+    transform: translateY(-2px);
+}
+
+.bouton--plein {
+    background-color: var(--couleur-accent);
+    color: var(--couleur-sur-accent);
+}
+
+.bouton--plein:hover {
+    background-color: #b81f1f;
+}
+
+.bouton--contour {
+    border-color: var(--couleur-bordure);
+}
+
+.bouton--contour:hover {
+    border-color: var(--couleur-texte);
+}
+
+.bouton--petit {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+}
+
+/* Badges (petites pastilles de technologies) */
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.badge {
+    font-family: var(--police-mono);
+    font-size: 0.75rem;
+    padding: 0.3rem 0.75rem;
+    border: 1px solid var(--couleur-bordure);
+    border-radius: var(--arrondi-bouton);
+    color: var(--couleur-texte-discret);
+}
+
+
+/* =========================================================
+   4. EN-TÊTE
+   ========================================================= */
+.en-tete {
+    position: sticky; /* reste en haut pendant le défilement */
+    top: 0;
+    z-index: 100;
+    background-color: color-mix(in srgb, var(--couleur-fond) 85%, transparent);
+    backdrop-filter: blur(10px); /* effet verre dépoli */
+    border-bottom: 1px solid var(--couleur-bordure);
+}
+
+.en-tete__interieur {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--hauteur-en-tete);
+}
+
+.en-tete__logo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+}
+
+.navigation__liens {
+    display: flex;
+    gap: 2rem;
+    font-size: 0.9rem;
+}
+
+.navigation__liens a {
+    color: var(--couleur-texte-discret);
+    transition: color 0.2s;
+}
+
+.navigation__liens a:hover {
+    color: var(--couleur-texte);
+}
+
+.en-tete__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.bouton-theme {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    font-size: 1.1rem;
+}
+
+.bouton-theme:hover {
+    background-color: var(--couleur-bordure);
+}
+
+/* Le burger est caché sur grand écran */
+.menu-burger {
+    display: none;
+}
+
+
+/* =========================================================
+   5. ACCUEIL
+   ========================================================= */
+.accueil {
+    padding-block: clamp(3rem, 8vw, 6rem) var(--espace-section);
+}
+
+/* 2 colonnes : texte (plus large) et photo */
+.accueil__grille {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    align-items: center;
+    gap: 4rem;
+}
+
+/* clamp(min, idéal, max) : la taille s'adapte à la largeur de l'écran */
+.accueil__titre {
+    font-size: clamp(3rem, 9vw, 6.5rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-block: 1rem;
+}
+
+.accueil__role {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+}
+
+.accueil__intro {
+    font-size: 1.1rem;
+    color: var(--couleur-texte-discret);
+    max-width: 40ch; /* environ 40 caractères par ligne : plus lisible */
+    margin-bottom: 2.5rem;
+}
+
+.accueil__boutons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+/* Cadre photo : un bloc rouge décalé derrière la photo */
+.photo {
+    position: relative;
+    aspect-ratio: 4 / 5; /* garde toujours les mêmes proportions */
+    max-width: 380px;
+    width: 100%;
+    margin-left: auto;
+}
+
+/* ::before crée un élément décoratif sans toucher au HTML */
+.photo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--couleur-accent);
+    border-radius: var(--arrondi);
+    transform: translate(1rem, 1rem);
+}
+
+.photo img,
+.photo__vide {
+    position: relative; /* passe au-dessus du bloc rouge */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* la photo remplit le cadre sans se déformer */
+    border-radius: var(--arrondi);
+}
+
+.photo__vide {
+    display: grid;
+    place-items: center;
+    background-color: var(--couleur-fond-carte);
+    border: 1px solid var(--couleur-bordure);
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--couleur-bordure);
+}
+
+
+/* =========================================================
+   6. SECTIONS (structure commune à toutes les sections)
+   ========================================================= */
+.section {
+    padding-block: var(--espace-section);
+    border-top: 1px solid var(--couleur-bordure);
+}
+
+.section__entete {
+    margin-bottom: 3.5rem;
+}
+
+.section__titre {
+    margin-top: 0.75rem;
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    max-width: 18ch;
+}
+
+
+/* =========================================================
+   7. PROJETS
+   ========================================================= */
+.projet {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.projet__image {
+    display: block;
+    overflow: hidden; /* coupe l'image quand elle grossit au survol */
+    border-radius: var(--arrondi);
+    border: 1px solid var(--couleur-bordure);
+}
+
+.projet__image img {
+    width: 100%;
+    transition: transform 0.5s;
+}
+
+.projet__image:hover img {
+    transform: scale(1.04);
+}
+
+.projet__titre {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-block: 0.5rem 1rem;
+}
+
+.projet__description {
+    color: var(--couleur-texte-discret);
+    margin-bottom: 1.5rem;
+}
+
+.projet__liens {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+}
+
+
+/* =========================================================
+   8. À PROPOS
+   ========================================================= */
+.a-propos {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+}
+
+.infos {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.infos dd {
+    margin-top: 0.25rem;
+    font-weight: 500;
+}
+
+.a-propos__texte {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    font-size: 1.1rem;
+    color: var(--couleur-texte-discret);
+}
+
+
+/* =========================================================
+   9. COMPÉTENCES (grille de cartes)
+   ========================================================= */
+
+/* auto-fill + minmax : autant de colonnes de 280px minimum
+   que possible. Sur mobile, ça passe tout seul à 1 colonne. */
+.cartes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+}
+
+.carte {
+    background-color: var(--couleur-fond-carte);
+    border: 1px solid var(--couleur-bordure);
+    border-radius: var(--arrondi);
+    padding: 2rem;
+    transition: border-color 0.3s, transform 0.3s;
+}
+
+.carte:hover {
+    border-color: var(--couleur-accent);
+    transform: translateY(-4px);
+}
+
+.carte__icone {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 1.5rem;
+    border-radius: 10px;
+    background-color: color-mix(in srgb, var(--couleur-accent) 15%, transparent);
+    color: var(--couleur-accent-texte);
+    font-family: var(--police-mono);
+    font-weight: 500;
+}
+
+.carte__titre {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.carte__texte {
+    color: var(--couleur-texte-discret);
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+}
+
+
+/* =========================================================
+   10. PARCOURS (frise chronologique)
+   ========================================================= */
+.frise {
+    border-left: 1px solid var(--couleur-bordure); /* la ligne verticale */
+    margin-left: 0.5rem;
+    max-width: 720px;
+}
+
+.frise__etape {
+    position: relative;
+    padding: 0 0 3rem 2.5rem;
+    color: var(--couleur-texte-discret);
+}
+
+.frise__etape:last-child {
+    padding-bottom: 0;
+}
+
+/* Le point rouge sur la ligne */
+.frise__etape::before {
+    content: "";
+    position: absolute;
+    left: -6px;
+    top: 0.25rem;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background-color: var(--couleur-accent);
+    box-shadow: 0 0 0 4px var(--couleur-fond);
+}
+
+.frise__titre {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--couleur-texte);
+    margin-top: 0.5rem;
+}
+
+.frise__lieu {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+
+/* =========================================================
+   11. CONTACT (bandeau)
+   ========================================================= */
+.contact {
+    background-color: var(--couleur-fond-carte);
+    border: 1px solid var(--couleur-bordure);
+    border-radius: calc(var(--arrondi) * 2);
+    padding: clamp(2rem, 6vw, 5rem);
+    text-align: center;
+}
+
+.contact__titre {
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    margin-block: 1rem 1.5rem;
+}
+
+.contact__texte {
+    color: var(--couleur-texte-discret);
+    max-width: 50ch;
+    margin: 0 auto 2.5rem;
+}
+
+.contact__liens {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+/* L'adresse écrite en clair, pour ceux qui veulent la copier */
+.contact__email {
+    margin-top: 1.5rem;
+    text-transform: none;
+}
+
+
+/* =========================================================
+   12. PIED DE PAGE
+   ========================================================= */
+.pied {
+    border-top: 1px solid var(--couleur-bordure);
+    padding-block: 2rem;
+    font-size: 0.9rem;
+    color: var(--couleur-texte-discret);
+}
+
+.pied__interieur {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+
+/* =========================================================
+   13. ANIMATION D'APPARITION (utilisée par le JavaScript)
+   ".js .apparition" : on ne cache les éléments que si le
+   JavaScript fonctionne (il ajoute la classe "js" sur <html>).
+   ========================================================= */
+.js .apparition {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.js .apparition.est-visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* Certaines personnes désactivent les animations dans leur système
+   (mal des transports, etc.) : on respecte ce choix. */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .js .apparition {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+
+/* =========================================================
+   14. RESPONSIVE (adaptation aux petits écrans)
+   "max-width: 768px" = ces règles s'appliquent seulement
+   quand l'écran fait 768px de large ou moins.
+   ========================================================= */
+@media (max-width: 768px) {
+
+    /* Toutes les grilles à 2 colonnes passent sur 1 colonne */
+    .accueil__grille,
+    .projet,
+    .a-propos {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    /* La photo passe au-dessus du texte et rétrécit */
+    .photo {
+        order: -1;
+        max-width: 220px;
+        margin-left: 0;
+    }
+
+    /* Le bouton Contact de l'en-tête prend trop de place : on le cache */
+    .en-tete__actions .bouton {
+        display: none;
+    }
+
+    /* Le burger apparaît */
+    .menu-burger {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 6px;
+        width: 2.25rem;
+        height: 2.25rem;
+    }
+
+    .menu-burger span {
+        display: block;
+        width: 22px;
+        height: 1.5px;
+        margin-inline: auto;
+        background-color: var(--couleur-texte);
+        transition: transform 0.3s;
+    }
+
+    /* Quand le menu est ouvert, les 2 traits se croisent pour former une croix.
+       [aria-expanded="true"] cible le bouton quand le JS a mis cet attribut à true. */
+    .menu-burger[aria-expanded="true"] span:first-child {
+        transform: translateY(3.75px) rotate(45deg);
+    }
+
+    .menu-burger[aria-expanded="true"] span:last-child {
+        transform: translateY(-3.75px) rotate(-45deg);
+    }
+
+    /* Le menu devient un panneau qui descend sous l'en-tête.
+       Il est caché par défaut ; le JavaScript ajoutera la classe "est-ouvert". */
+    .navigation__liens {
+        position: fixed;
+        top: var(--hauteur-en-tete);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 0;
+        padding: 1rem var(--marge-cote) 2rem;
+        background-color: var(--couleur-fond);
+        border-bottom: 1px solid var(--couleur-bordure);
+        font-size: 1.5rem;
+        transform: translateY(-120%);
+        visibility: hidden;
+        transition: transform 0.3s, visibility 0.3s;
+    }
+
+    .navigation__liens a {
+        display: block;
+        padding-block: 0.75rem;
+        color: var(--couleur-texte);
+    }
+
+    .navigation__liens.est-ouvert {
+        transform: translateY(0);
+        visibility: visible;
+    }
+}

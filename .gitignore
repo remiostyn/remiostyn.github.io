@@ -1,0 +1,9 @@
+# Configuration de l'aperçu local (Claude)
+.claude/
+
+# Fichiers système Windows
+desktop.ini
+Thumbs.db
+
+# Photo originale (le site utilise images/photo-remi.jpg, plus légère)
+images/Photo de moi.jpg
