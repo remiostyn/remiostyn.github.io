@@ -33,7 +33,7 @@ liensMenu.forEach(function (lien) {
    Le site est sombre par défaut. Le bouton ajoute ou retire
    data-theme="clair" sur la balise <html>.
    Le choix est mémorisé dans le navigateur (localStorage)
-   pour être conservé à la prochaine visite.
+   pour être conservé à la prochaine visite
    ========================================================= */
 const boutonTheme = document.querySelector("#bouton-theme");
 const html = document.documentElement; // la balise <html>
